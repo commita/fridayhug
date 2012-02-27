@@ -97,30 +97,33 @@ def is_a_hug?(text)
 end
 
 def update_hugs!
-  Twitter.search("tenderlove hug OR #HugFriday", include_entities: true, rpp: 50, result_type: "recent").each do |tweet|
-    if tweet.media.empty?
-      tweet.expanded_urls.each do |expanded_url|
-        if is_image?(expanded_url)
-          @media_url = get_image_url(expanded_url)
-          @media_display_url = expanded_url
+  terms = ["tenderlove hug", "tenderlove hugs", "#HugFriday"]
+  terms.each do |term|
+    Twitter.search(term, include_entities: true, rpp: 50, result_type: "recent").each do |tweet|
+      if tweet.media.empty?
+        tweet.expanded_urls.each do |expanded_url|
+          if is_image?(expanded_url)
+            @media_url = get_image_url(expanded_url)
+            @media_display_url = expanded_url
+          end
         end
+      else
+        @media_url = tweet.media.first.media_url
+        @media_display_url = tweet.media.first.display_url
       end
-    else
-      @media_url = tweet.media.first.media_url
-      @media_display_url = tweet.media.first.display_url
-    end
-    if is_a_hug?(tweet.text) && @media_url
-      if Hug.where(media_url: @media_url).empty?
-        Hug.create(
-          tweet_id: tweet.id,
-          tweet_text: tweet.text,
-          username: tweet.from_user,
-          media_url: @media_url,
-          media_display_url: @media_display_url,
-          retweet_count: tweet.retweet_count,
-          published_at: tweet.created_at,
-          published: true
-        )
+      if is_a_hug?(tweet.text) && @media_url
+        if Hug.where(media_url: @media_url).empty?
+          Hug.create(
+            tweet_id: tweet.id,
+            tweet_text: tweet.text,
+            username: tweet.from_user,
+            media_url: @media_url,
+            media_display_url: @media_display_url,
+            retweet_count: tweet.retweet_count,
+            published_at: tweet.created_at,
+            published: true
+          )
+        end
       end
     end
   end
