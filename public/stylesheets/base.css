@@ -1,0 +1,9 @@
+header .bird {
+  background: url('../images/twitter_newbird_blue.png') no-repeat top left;
+  height: 150px;
+}
+
+header h2 {
+  margin-left: 150px;
+  padding-top: 50px;
+}

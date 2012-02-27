@@ -5,19 +5,28 @@
     %title Hug Friday!
     %link{href: 'stylesheets/bootstrap.min.css', rel: 'stylesheet'}
     %link{href: 'stylesheets/bootstrap-responsive.min.css', rel: 'stylesheet'}
+    %link{href: 'stylesheets/base.css', rel: 'stylesheet'}
     /[if lt IE 9]
       %script{src: "http://html5shim.googlecode.com/svn/trunk/html5.js"}
   %body
     .container
       %header
         .hero-unit
-          %h1 Hey, it's Hug Friday!
-          %p Share your hug with the hashtag #HugFriday
-          %p
-            (yes, yet another mashup using
-            %a{href: "http://twitter.github.com/bootstrap/"} Twitter Bootstrap
-            )
+          %h1
+            Hey, it's Hug Friday!
+            %a{href: '/about', class: 'btn btn-primary btn-large'} Learn more
+          .bird
+            %h2
+              Share your hug with the hashtag
+              %a{href: 'https://twitter.com'} #HugFriday
       = yield
       %hr
       %footer
-        Bla
+        %p
+          %em
+            yes! yet another app using
+            %a{href: "http://twitter.github.com/bootstrap/"} Twitter Bootstrap
+            and proudly hosted by
+            %a{href: "http://heroku.com"} Heroku
+            and
+            %a{href: "http://mongolab.com"} MongoLab
