@@ -7,9 +7,14 @@ require 'awesome_print'
 
 configure do
   Mongoid.configure do |config|
-    name = "hugfriday"
-    host = "localhost"
-    config.master = Mongo::Connection.new.db(name)
+    if ENV['RACK_ENV'] == 'development'
+      name = "hugfriday"
+      host = "localhost"
+      config.master = Mongo::Connection.new.db(name)
+    else
+      uri =  URI.parse(ENV['MONGOLAB_URL'])
+      config.master = Mongo::Connection.from_uri(ENV['MONGOLAB_URL']).db(uri.path.gsub("/", ""))    
+    end
   end
 end
 
