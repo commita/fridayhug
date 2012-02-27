@@ -63,11 +63,13 @@ get '/remove/:id' do
 end
 
 get '/process/new/hugs/with/more/love' do
+  protected!
   update_hugs!
   "Success!"
 end
 
 get '/process/tenderlove/with/love' do
+  protected!
   total = 0
   max = Twitter.user(params[:user]).statuses_count
   page = 1
