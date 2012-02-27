@@ -1,0 +1,12 @@
+%ul.thumbnails
+  - @tweets.each do |t|
+    %li.span3
+      .thumbnail
+        %img{src: t.media_url}
+        %blockquote
+          %p
+            = "#{t.tweet_text}"
+            %small
+              %a{href: "https://twitter.com/#!/#{t.username}"}= "@#{t.username}"
+              = "at #{t.published_at.strftime('%b, %d %Y')}"
+              %a{href: "https://twitter.com/#!/#{t.username}/status/#{t.tweet_id}"} link
