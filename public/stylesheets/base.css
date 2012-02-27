@@ -2,12 +2,12 @@ header a:hover {
   text-decoration:none;
 }
 
-sub-header a {
+sub-header.home a {
   color: #ccc;
   text-decoration: none;
 }
 
-sub-header a:hover {
+sub-header.home a:hover {
   color: #ccc;
 }
 
