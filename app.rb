@@ -19,7 +19,9 @@ configure do
 end
 
 get '/' do
-  @tweets = Hug.desc(:published_at).published
+  @tweets = Hug.desc(:published_at).skip((current_page-1)*20).limit(20).published
+  @num_pages =  @tweets.count / 20
+  @num_pages += 1 if  @tweets.count % 20 > 0
   haml :index
 end
 
@@ -98,6 +100,10 @@ end
 
 def is_a_hug?(text)
   text =~ /hug|friday/i
+end
+
+def current_page
+  params[:page].to_i || 1
 end
 
 def update_hugs!

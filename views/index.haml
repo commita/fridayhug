@@ -19,3 +19,8 @@
               %a{href: "https://twitter.com/#!/#{t.username}"}= "@#{t.username}"
               = "at #{t.published_at.strftime('%b, %d %Y')}"
               %a{href: "https://twitter.com/#!/#{t.username}/status/#{t.tweet_id}"} link
+.pagination
+  %ul
+    - @num_pages.times do |page|
+      %li{class: "#{'active' if page+1 == params[:page].to_i}"}
+        %a{href: "/?page=#{page+1}"}= page+1
