@@ -103,7 +103,7 @@ def is_a_hug?(text)
 end
 
 def current_page
-  params[:page].to_i || 1
+  params[:page].to_i > 0 ? params[:page].to_i : 1
 end
 
 def update_hugs!
