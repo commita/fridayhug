@@ -48,10 +48,17 @@ get '/manage-hugs' do
   redirect '/'
 end
 
-get '/remove/:id' do
+get '/hide/:id' do
   protected!
   @hug = Hug.find params[:id]
   @hug.update_attribute(:published, false)
+  redirect '/'
+end
+
+get '/remove/:id' do
+  protected!
+  @hug = Hug.find params[:id]
+  @hug.destroy
   redirect '/'
 end
 

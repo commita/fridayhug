@@ -22,6 +22,7 @@
               = "at #{t.published_at.strftime('%b, %d %Y')}"
               %a{href: "https://twitter.com/#!/#{t.username}/status/#{t.tweet_id}"} link
               - if authorized?
+                %a{href: "/hide/#{t.id}"} hide
                 %a{href: "/remove/#{t.id}"} remove
 .pagination
   %ul
