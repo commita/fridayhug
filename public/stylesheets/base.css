@@ -8,6 +8,10 @@ header .bird h2 {
   padding-top: 50px;
 }
 
+#facebox img {
+  max-width:800px;
+}
+
 footer {
   text-align: right;
 }
