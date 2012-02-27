@@ -1,14 +1,27 @@
-header .bird {
+header a:hover {
+  text-decoration:none;
+}
+
+sub-header a {
+  color: #ccc;
+  text-decoration: none;
+}
+
+sub-header a:hover {
+  color: #ccc;
+}
+
+sub-header .bird {
   background: url('../images/twitter_newbird_blue.png') no-repeat top left;
   height: 150px;
 }
 
-header .bird h2 {
+sub-header .bird h2 {
   margin-left: 150px;
   padding-top: 50px;
 }
 
-header .hugs-count {
+sub-header .hugs-count {
   text-align: right;
 }
 
