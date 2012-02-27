@@ -18,6 +18,20 @@ configure do
   end
 end
 
+helpers do
+  def protected!
+    unless authorized?
+      response['WWW-Authenticate'] = %(Basic realm="Restricted Area")
+      throw(:halt, [401, "Not authorized\n"])
+    end
+  end
+
+  def authorized?
+    @auth ||=  Rack::Auth::Basic::Request.new(request.env)
+    @auth.provided? && @auth.basic? && @auth.credentials && @auth.credentials == ['kris', 'letsgetsomehugs']
+  end
+end
+
 get '/' do
   @tweets = Hug.desc(:published_at).skip((current_page-1)*20).limit(20).published
   @num_pages =  @tweets.count / 20
@@ -27,6 +41,18 @@ end
 
 get '/about' do
   haml :about
+end
+
+get '/manage-hugs' do
+  protected!
+  redirect '/'
+end
+
+get '/remove/:id' do
+  protected!
+  @hug = Hug.find params[:id]
+  @hug.update_attribute(:published, false)
+  redirect '/'
 end
 
 get '/process/new/hugs/with/more/love' do

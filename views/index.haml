@@ -19,6 +19,8 @@
               %a{href: "https://twitter.com/#!/#{t.username}"}= "@#{t.username}"
               = "at #{t.published_at.strftime('%b, %d %Y')}"
               %a{href: "https://twitter.com/#!/#{t.username}/status/#{t.tweet_id}"} link
+              - if authorized?
+                %a{href: "/remove/#{t.id}"} remove
 .pagination
   %ul
     - @num_pages.times do |page|
