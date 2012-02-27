@@ -1,7 +1,10 @@
 %header
   .hero-unit
     %h1
-      Hey, it's Hug Friday!
+      - if Time.now.friday?
+        Hey, it's Hug Friday!
+      - else
+        It's not Friday yet. :(
       %a{href: '/about', class: 'btn btn-primary btn-large'} Learn more
     .bird
       %h2
