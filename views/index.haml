@@ -1,3 +1,12 @@
+%header
+  .hero-unit
+    %h1
+      Hey, it's Hug Friday!
+      %a{href: '/about', class: 'btn btn-primary btn-large'} Learn more
+    .bird
+      %h2
+        Share your hug with the hashtag
+        %a{href: 'https://twitter.com'} #HugFriday
 %ul.thumbnails
   - @tweets.each do |t|
     %li.span3

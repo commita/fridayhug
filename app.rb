@@ -23,6 +23,10 @@ get '/' do
   haml :index
 end
 
+get '/about' do
+  haml :about
+end
+
 get '/process/new/hugs/with/more/love' do
   update_hugs!
   "Success!"

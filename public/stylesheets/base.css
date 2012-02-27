@@ -3,7 +3,7 @@ header .bird {
   height: 150px;
 }
 
-header h2 {
+header .bird h2 {
   margin-left: 150px;
   padding-top: 50px;
 }
