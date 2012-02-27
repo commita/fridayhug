@@ -7,3 +7,7 @@ header h2 {
   margin-left: 150px;
   padding-top: 50px;
 }
+
+footer {
+  text-align: right;
+}
