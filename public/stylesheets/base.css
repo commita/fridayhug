@@ -8,6 +8,10 @@ header .bird h2 {
   padding-top: 50px;
 }
 
+header .hugs-count {
+  text-align: right;
+}
+
 #facebox img {
   max-width:800px;
 }
