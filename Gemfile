@@ -6,6 +6,6 @@ gem 'bson_ext', '~> 1.6.0'
 gem 'mongoid', '~> 2.4.5'
 gem 'twitter', '~> 2.1.0'
 gem 'thin', '~> 1.3.1'
-gem 'newrelic_rpm'
+gem 'newrelic_rpm', '~> 3.3.2'
 gem 'awesome_print'
 
