@@ -6,7 +6,6 @@ require_relative 'models/hug'
 require 'awesome_print'
 
 configure :production do
-  require 'newrelic_rpm'
   Mongoid.configure do |config|
     uri =  URI.parse(ENV['MONGOLAB_URL'])
     config.master = Mongo::Connection.from_uri(ENV['MONGOLAB_URL']).db(uri.path.gsub("/", ""))    
