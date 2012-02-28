@@ -5,16 +5,19 @@ require 'mongoid'
 require_relative 'models/hug'
 require 'awesome_print'
 
-configure do
+configure :production do
+  require 'newrelic_rpm'
   Mongoid.configure do |config|
-    if ENV['RACK_ENV'] == 'development'
-      name = "hugfriday"
-      host = "localhost"
-      config.master = Mongo::Connection.new.db(name)
-    else
-      uri =  URI.parse(ENV['MONGOLAB_URL'])
-      config.master = Mongo::Connection.from_uri(ENV['MONGOLAB_URL']).db(uri.path.gsub("/", ""))    
-    end
+    uri =  URI.parse(ENV['MONGOLAB_URL'])
+    config.master = Mongo::Connection.from_uri(ENV['MONGOLAB_URL']).db(uri.path.gsub("/", ""))    
+  end
+end
+
+configure :development do
+  Mongoid.configure do |config|
+    name = "hugfriday"
+    host = "localhost"
+    config.master = Mongo::Connection.new.db(name)
   end
 end
 
