@@ -46,7 +46,7 @@ get '/about' do
 end
 
 get '/atom.xml' do
-  @hugs = Hug.limit(50)
+  @hugs = Hug.desc(:published_at).published.limit(50)
   content_type 'application/atom+xml'
   haml(:atom, :format => :xhtml, :escape_html => true, :layout => false)
 end
