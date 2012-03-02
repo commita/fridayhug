@@ -154,7 +154,7 @@ end
 def get_image_url(url)
   case url
     when /twitpic.com/
-      "http://twitpic.com/show/full/#{url.split('/')[3]}"
+      "http://twitpic.com/show/thumb/#{url.split('/')[3]}"
     when /yfrog.com/
       "http://yfrog.com/#{url.split('/')[3]}:medium"
     when /instagr.am/
