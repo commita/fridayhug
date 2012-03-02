@@ -176,7 +176,7 @@ def current_page
 end
 
 def update_hugs!
-  terms = ["#FridayHug", "#HugFriday", "tenderlove hug", "tenderlove hugs"]
+  terms = ["#FridayHug", "#HugFriday", "hug friday", "tenderlove hug", "tenderlove hugs"]
   terms.each do |term|
     Twitter.search(term, include_entities: true, rpp: 50, result_type: "recent").each do |tweet|
       create_hug(tweet)
