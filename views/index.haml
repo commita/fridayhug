@@ -10,10 +10,19 @@
       %h2
         Share your hug with the hashtag
         %a{href: 'https://twitter.com'} #HugFriday
-  %p.hugs-count
-    %span.label.label-info
-      =@tweets.count
-      hugs so far.
+  .row
+    .span8
+      %form{class: 'form-inline', action: '/share-hug', method: 'POST'}
+        %label Can't find your hug? Share it with us:
+        %input.span4{type: 'text', placeholder: 'https://twitter.com/#!/HugFriday/status/175433835499110400', name: 'tweet'}
+        %a{id: 'submit-hug', href: '#', rel: "tooltip", title: "URL for the Tweet with an image. We support yfrog, instagram, twitpic and twitter native photos."}
+          %i.icon-question-sign
+        %button{type: 'submit', class: 'btn'} Send
+    .span4 
+      %p.hugs-count
+        %span.label.label-info
+          =@tweets.count
+          hugs so far.
 %ul.thumbnails
   - @tweets.each do |t|
     %li.span3

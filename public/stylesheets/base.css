@@ -17,12 +17,13 @@ sub-header.home a:hover {
 
 sub-header .bird {
   background: url('../images/twitter_newbird_blue.png') no-repeat top left;
-  height: 150px;
+  height: 100px;
+  margin-top: 10px;
 }
 
 sub-header .bird h2 {
-  margin-left: 150px;
-  padding-top: 50px;
+  margin-left: 130px;
+  padding-top: 20px;
 }
 
 sub-header .hugs-count {

@@ -3,4 +3,6 @@ $.facebox.settings.loadingImage = '../images/loading.gif'
 
 jQuery(document).ready(function($) {
   $('a[rel*=facebox]').facebox()
+  $('#submit-hug').tooltip()
+  $(".alert").alert()
 })

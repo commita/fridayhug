@@ -1,9 +1,12 @@
 require 'sinatra'
+require 'sinatra/flash'
 require 'haml'
 require 'twitter'
 require 'mongoid'
 require_relative 'models/hug'
 require 'awesome_print'
+
+enable :sessions
 
 configure :production do
   Mongoid.configure do |config|
@@ -49,6 +52,24 @@ get '/atom.xml' do
   @hugs = Hug.desc(:published_at).published.limit(50)
   content_type 'application/atom+xml'
   haml(:atom, :format => :xhtml, :escape_html => true, :layout => false)
+end
+
+post '/share-hug' do
+  if params[:tweet].present?
+    tweet_id = params[:tweet].split('/').last.to_i
+    begin
+      tweet = Twitter.status(tweet_id, include_entities: true)
+      create_hug(tweet, true)
+      flash[:success] = 'ZOMG! Your hug is amazing! Thank you.'
+      redirect '/'
+    rescue
+      flash[:alert] = 'Sorry, this is not a valid Tweet URL.'
+      redirect '/'
+    end
+  else
+    flash[:info] = 'Hey, you need to enter the Tweet URL.'
+    redirect '/'
+  end
 end
 
 get '/manage-hugs' do
@@ -153,31 +174,36 @@ def update_hugs!
   terms = ["tenderlove hug", "tenderlove hugs", "#HugFriday"]
   terms.each do |term|
     Twitter.search(term, include_entities: true, rpp: 50, result_type: "recent").each do |tweet|
-      if tweet.media.empty?
-        tweet.expanded_urls.each do |expanded_url|
-          if is_image?(expanded_url)
-            @media_url = get_image_url(expanded_url)
-            @media_display_url = expanded_url
-          end
-        end
-      else
-        @media_url = tweet.media.first.media_url
-        @media_display_url = tweet.media.first.display_url
+      create_hug(tweet)
+    end
+  end
+end
+
+def create_hug(tweet, skip_hug_validation = false)
+  if tweet.media && tweet.media.empty?
+    tweet.expanded_urls.each do |expanded_url|
+      if is_image?(expanded_url)
+        @media_url = get_image_url(expanded_url)
+        @media_display_url = expanded_url
       end
-      if is_a_hug?(tweet.text) && @media_url
-        if Hug.where(media_url: @media_url).empty?
-          Hug.create(
-            tweet_id: tweet.id,
-            tweet_text: tweet.text,
-            username: tweet.from_user,
-            media_url: @media_url,
-            media_display_url: @media_display_url,
-            retweet_count: tweet.retweet_count,
-            published_at: tweet.created_at,
-            published: true
-          )
-        end
-      end
+    end
+  else
+    @media_url = tweet.media.first.media_url
+    @media_display_url = tweet.media.first.display_url
+  end
+  if (is_a_hug?(tweet.text) || skip_hug_validation) && @media_url
+    if Hug.where(media_url: @media_url).empty?
+      user = tweet.from_user.nil? ? tweet.user.screen_name : tweet.from_user
+      Hug.create(
+        tweet_id: tweet.id,
+        tweet_text: tweet.text,
+        username: user,
+        media_url: @media_url,
+        media_display_url: @media_display_url,
+        retweet_count: tweet.retweet_count,
+        published_at: tweet.created_at,
+        published: true
+      )
     end
   end
 end
