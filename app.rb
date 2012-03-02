@@ -47,7 +47,6 @@ end
 
 get '/atom.xml' do
   @hugs = Hug.limit(50)
-  content_type 'application/atom+xml'
   haml(:atom, :format => :xhtml, :escape_html => true, :layout => false)
 end
 
