@@ -1,22 +1,21 @@
 !!! XML
 %feed{xmlns:"http://www.w3.org/2005/Atom"}
-  %channel
-    %title #HugFriday - Share your hug!
-    %link{href: "http://hugfriday.com/", rel: "alternate", type: "text/html"}
-    %link{href: "http://hugfriday.com/atom.xml", rel: "self", type: "application/atom+xml"}
-    %subtitle{type: "html"} Every friday we share hugs on Twitter with the hashtag #HugFriday and make the day a little bit better.
-    - @hugs.each do |hug|
-      %item
-        %title= "Hug from @#{hug.username}"
-        %published= hug.published_at.xmlschema
-        %link= "https://twitter.com/#!/#{hug.username}/status/#{hug.tweet_id}"
-        %content{type: "xhtml", 'xml:lang' => "en", 'xml:base' => "http://diveintomark.org/"}
-          %div{xmlns: "http://www.w3.org/1999/xhtml"}
-            %img{src: hug.media_url}
-            %blockquote
-              %p
-                = "#{hug.tweet_text}"
-                %small
-                  %a{href: "https://twitter.com/#!/#{hug.username}"}= "@#{hug.username}"
-                  = "at #{hug.published_at.strftime('%b, %d %Y')}"
-                  %a{href: "https://twitter.com/#!/#{hug.username}/status/#{hug.tweet_id}"} link
+  %title #HugFriday - Share your hug!
+  %link{href: "http://hugfriday.com/", rel: "alternate", type: "text/html"}
+  %link{href: "http://hugfriday.com/atom.xml", rel: "self", type: "application/atom+xml"}
+  %subtitle{type: "html"} Every friday we share hugs on Twitter with the hashtag #HugFriday and make the day a little bit better.
+  - @hugs.each do |hug|
+    %entry
+      %title= "Hug from @#{hug.username}"
+      %published= hug.published_at.xmlschema
+      %link= "https://twitter.com/#!/#{hug.username}/status/#{hug.tweet_id}"
+      %content{type: "xhtml", 'xml:lang' => "en", 'xml:base' => "http://diveintomark.org/"}
+        %div{xmlns: "http://www.w3.org/1999/xhtml"}
+          %img{src: hug.media_url}
+          %blockquote
+            %p
+              = "#{hug.tweet_text}"
+              %small
+                %a{href: "https://twitter.com/#!/#{hug.username}"}= "@#{hug.username}"
+                = "at #{hug.published_at.strftime('%b, %d %Y')}"
+                %a{href: "https://twitter.com/#!/#{hug.username}/status/#{hug.tweet_id}"} link
