@@ -4,11 +4,14 @@
   %link{href: "http://hugfriday.com/", rel: "alternate", type: "text/html"}
   %link{href: "http://hugfriday.com/atom.xml", rel: "self", type: "application/atom+xml"}
   %subtitle{type: "html"} Every friday we share hugs on Twitter with the hashtag #HugFriday and make the day a little bit better.
+  %updated= Time.now.xmlschema
   - @hugs.each do |hug|
     %entry
       %title= "Hug from @#{hug.username}"
       %published= hug.published_at.xmlschema
       %link{href: "https://twitter.com/#!/#{hug.username}/status/#{hug.tweet_id}"}
+      %author
+        %name #HugFriday
       %content{type: "xhtml", 'xml:lang' => "en", 'xml:base' => "http://diveintomark.org/"}
         %div{xmlns: "http://www.w3.org/1999/xhtml"}
           %img{src: hug.media_url}
