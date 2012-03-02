@@ -9,6 +9,7 @@
     %entry
       %title= "Hug from @#{hug.username}"
       %published= hug.published_at.xmlschema
+      %updated= hug.updated_at.xmlschema
       %link{href: "https://twitter.com/#!/#{hug.username}/status/#{hug.tweet_id}"}
       %author
         %name #HugFriday
