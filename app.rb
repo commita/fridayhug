@@ -72,6 +72,11 @@ post '/share-hug' do
   end
 end
 
+get '/hugs/:id' do
+  @hug = Hug.find params[:id]
+  haml :show, layout: false
+end
+
 get '/manage-hugs' do
   protected!
   redirect '/'

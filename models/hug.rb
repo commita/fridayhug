@@ -16,4 +16,12 @@ class Hug
   def self.published
     where(published: true)
   end
+
+  def twitpic?
+    media_url =~ /twitpic.com/
+  end
+
+  def twitpic_full
+    media_url.gsub('thumb', 'full')
+  end
 end

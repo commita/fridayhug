@@ -28,7 +28,7 @@
   - @tweets.each do |t|
     %li.span3
       .thumbnail
-        %a{href: "##{t.id}", rel: "facebox"}
+        %a{href: "/hugs/#{t.id}", rel: "facebox"}
           %div{id: t.id, class: 'my-thumb'}
             %img{src: t.media_url}
         %blockquote
