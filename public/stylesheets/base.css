@@ -2,6 +2,10 @@ header a:hover {
   text-decoration:none;
 }
 
+header .feed {
+  text-align: right;
+  margin-top: 5px;
+}
 sub-header.home a {
   color: #ccc;
   text-decoration: none;
