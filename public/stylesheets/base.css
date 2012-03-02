@@ -30,6 +30,10 @@ sub-header .hugs-count {
   text-align: right;
 }
 
+.my-thumb {
+  text-align: center;
+}
+
 #facebox img {
   max-width:800px;
 }
