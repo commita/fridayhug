@@ -172,10 +172,8 @@ def get_image_url(url)
 end
 
 def get_imgly(url)
-  ap url
   doc = Nokogiri::HTML(open(url))
   image_url = doc.search("li[@id='button-fullview']/a").first['href']
-  ap image_url
   image_id = image_url.split('/')[2]
   image_url = "http://s3.amazonaws.com/imgly_production/#{image_id}/medium.jpg"
 end
