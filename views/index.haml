@@ -24,6 +24,14 @@
         %span.label.label-info
           =@tweets.count
           hugs so far.
+.row
+  .span12
+    %p
+      %span.label.label-success Huge Hug!
+      Thanks to 
+      %a{href: 'https://dnsimple.com/'} DNSimple
+      for giving us two years of service.
+      %a{href: 'https://twitter.com/#!/aeden/status/175705505803677696'} More info
 %ul.thumbnails
   - @tweets.each do |t|
     %li.span3
