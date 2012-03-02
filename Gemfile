@@ -7,5 +7,6 @@ gem 'mongoid', '~> 2.4.5'
 gem 'twitter', '~> 2.1.0'
 gem 'thin', '~> 1.3.1'
 gem 'sinatra-flash', '~> 0.3.0'
+gem 'nokogiri', '~> 1.5.0'
 gem 'awesome_print'
 

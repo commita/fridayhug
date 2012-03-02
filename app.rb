@@ -3,6 +3,8 @@ require 'sinatra/flash'
 require 'haml'
 require 'twitter'
 require 'mongoid'
+require 'open-uri'
+require 'nokogiri'
 require_relative 'models/hug'
 require 'awesome_print'
 
@@ -153,7 +155,7 @@ get '/process/tenderlove/with/love' do
 end
 
 def is_image?(url)
-  url =~ /twitpic.com|yfrog.com|instagr.am/i
+  url =~ /twitpic.com|yfrog.com|instagr.am|img.ly/i
 end
 
 def get_image_url(url)
@@ -164,7 +166,18 @@ def get_image_url(url)
       "http://yfrog.com/#{url.split('/')[3]}:medium"
     when /instagr.am/
       "http://instagr.am/p/#{url.split('/')[4]}/media?size=m"
+    when /img.ly/
+      get_imgly(url)
   end
+end
+
+def get_imgly(url)
+  ap url
+  doc = Nokogiri::HTML(open(url))
+  image_url = doc.search("li[@id='button-fullview']/a").first['href']
+  ap image_url
+  image_id = image_url.split('/')[2]
+  image_url = "http://s3.amazonaws.com/imgly_production/#{image_id}/medium.jpg"
 end
 
 def is_a_hug?(text)
