@@ -12,6 +12,7 @@ Mongoid.configure do |config|
 end
 
 def update_hugs!
+  puts Time.now
   puts "Updating hugs..."
   terms = ["#FridayHug", "#HugFriday", "hug friday", "tenderlove hug", "tenderlove hugs"]
   terms.each do |term|
