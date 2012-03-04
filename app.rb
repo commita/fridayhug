@@ -4,8 +4,8 @@ require 'haml'
 require 'twitter'
 require 'mongoid'
 require 'open-uri'
-require 'nokogiri'
 require_relative 'models/hug'
+require_relative 'helpers'
 require 'awesome_print'
 
 enable :sessions
@@ -61,7 +61,7 @@ post '/share-hug' do
     tweet_id = params[:tweet].split('/').last.to_i
     begin
       tweet = Twitter.status(tweet_id, include_entities: true)
-      create_hug(tweet, true)
+      Hug.create_or_skip(tweet, true)
       flash[:success] = 'ZOMG! Your hug is amazing! Thank you.'
       redirect '/'
     rescue
@@ -96,130 +96,4 @@ get '/remove/:id' do
   @hug = Hug.find params[:id]
   @hug.destroy
   redirect '/'
-end
-
-get '/process/new/hugs/with/more/love' do
-  protected!
-  update_hugs!
-  "Success!"
-end
-
-get '/process/tenderlove/with/love' do
-  protected!
-  total = 0
-  max = Twitter.user(params[:user]).statuses_count
-  page = 1
-  puts "MAX: #{max}"
-
-  while total < max
-    tweets = Twitter.user_timeline('tenderlove', include_entities: true, include_rts: true, count: 100, page: page)
-    puts "Tweets: #{tweets.count}"
-    
-    tweets.each do |tweet|
-      tweet = tweet.retweeted_status unless tweet.retweeted_status.nil? 
-      
-      if tweet.media.empty?
-        tweet.expanded_urls.each do |expanded_url|
-          if is_image?(expanded_url)
-            @media_url = get_image_url(expanded_url)
-            @media_display_url = expanded_url
-          end
-        end
-      else
-        @media_url = tweet.media.first.media_url
-        @media_display_url = tweet.media.first.display_url
-      end
-
-      if is_a_hug?(tweet.text) && @media_url
-        if Hug.where(media_url: @media_url).empty?
-          Hug.create(
-            tweet_id: tweet.id,
-            tweet_text: tweet.text,
-            username: tweet.user.screen_name,
-            media_url: @media_url,
-            media_display_url: @media_display_url,
-            retweet_count: tweet.retweet_count,
-            published_at: tweet.created_at,
-            published: true
-          )
-        end
-      end
-    end
-    
-    total += 100
-    page += 1
-    puts "TOTAL: #{total}"
-    sleep(10)
-  end
-  "Success!"
-end
-
-def is_image?(url)
-  url =~ /twitpic.com|yfrog.com|instagr.am|img.ly/i
-end
-
-def get_image_url(url)
-  case url
-    when /twitpic.com/
-      "http://twitpic.com/show/thumb/#{url.split('/')[3]}"
-    when /yfrog.com/
-      "http://yfrog.com/#{url.split('/')[3]}:medium"
-    when /instagr.am/
-      "http://instagr.am/p/#{url.split('/')[4]}/media?size=m"
-    when /img.ly/
-      get_imgly(url)
-  end
-end
-
-def get_imgly(url)
-  doc = Nokogiri::HTML(open(url))
-  image_url = doc.search("li[@id='button-fullview']/a").first['href']
-  image_id = image_url.split('/')[2]
-  image_url = "http://s3.amazonaws.com/imgly_production/#{image_id}/medium.jpg"
-end
-
-def is_a_hug?(text)
-  text =~ /hug|friday/i
-end
-
-def current_page
-  params[:page].to_i > 0 ? params[:page].to_i : 1
-end
-
-def update_hugs!
-  terms = ["#FridayHug", "#HugFriday", "hug friday", "tenderlove hug", "tenderlove hugs"]
-  terms.each do |term|
-    Twitter.search(term, include_entities: true, rpp: 50, result_type: "recent").each do |tweet|
-      create_hug(tweet)
-    end
-  end
-end
-
-def create_hug(tweet, skip_hug_validation = false)
-  if tweet.media && tweet.media.empty?
-    tweet.expanded_urls.each do |expanded_url|
-      if is_image?(expanded_url)
-        @media_url = get_image_url(expanded_url)
-        @media_display_url = expanded_url
-      end
-    end
-  else
-    @media_url = tweet.media.first.media_url
-    @media_display_url = tweet.media.first.display_url
-  end
-  if (is_a_hug?(tweet.text) || skip_hug_validation) && @media_url
-    if Hug.where(media_url: @media_url).empty?
-      user = tweet.from_user.nil? ? tweet.user.screen_name : tweet.from_user
-      Hug.create(
-        tweet_id: tweet.id,
-        tweet_text: tweet.text,
-        username: user,
-        media_url: @media_url,
-        media_display_url: @media_display_url,
-        retweet_count: tweet.retweet_count,
-        published_at: tweet.created_at,
-        published: true
-      )
-    end
-  end
 end
