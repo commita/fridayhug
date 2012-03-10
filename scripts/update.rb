@@ -14,7 +14,7 @@ end
 def update_hugs!
   puts Time.now
   puts "Updating hugs..."
-  terms = ["#FridayHug", "#HugFriday", "tenderlove hug", "tenderlove hugs"]
+  terms = ["FridayHug", "HugFriday", "tenderlove hug", "tenderlove hugs"]
   terms.each do |term|
     puts "Search: #{term}"
     Twitter.search(term, include_entities: true, rpp: 50, result_type: "recent").each do |tweet|
