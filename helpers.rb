@@ -1,23 +1,25 @@
 require 'nokogiri'
 
 def is_image?(url)
-  url =~ /twitpic.com|yfrog.com|instagr.am|img.ly/i
+  url =~ /twitpic.com|yfrog.com|instagr.am|img.ly|.jpg|.jpeg|.gif|.png/i
 end
 
 def get_image_url(url)
   case url
-    when /twitpic.com/
-      "http://twitpic.com/show/thumb/#{url.split('/')[3]}"
-    when /yfrog.com/
+    when /twitpic.com/i
+      "http://twitpic.com/show/full/#{url.split('/')[3]}"
+    when /yfrog.com/i
       "http://yfrog.com/#{url.split('/')[3]}:medium"
-    when /instagr.am/
+    when /instagr.am/i
       "http://instagr.am/p/#{url.split('/')[4]}/media?size=m"
-    when /img.ly/
-      get_imgly(url)
+    when /img.ly/i
+      get_imgly_url(url)
+		when /.jpg|.jpeg|.gif|.png/i
+			url
   end
 end
 
-def get_imgly(url)
+def get_imgly_url(url)
   doc = Nokogiri::HTML(open(url))
   image_url = doc.search("li[@id='button-fullview']/a").first['href']
   image_id = image_url.split('/')[2]

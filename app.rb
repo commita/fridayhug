@@ -3,7 +3,6 @@ require 'sinatra/flash'
 require 'haml'
 require 'twitter'
 require 'mongoid'
-require 'open-uri'
 require_relative 'models/hug'
 require_relative 'helpers'
 require 'awesome_print'
@@ -61,11 +60,11 @@ post '/share-hug' do
     tweet_id = params[:tweet].split('/').last.to_i
     begin
       tweet = Twitter.status(tweet_id, include_entities: true)
-      Hug.create_or_skip(tweet, true)
+      hug = Hug.create_or_skip(tweet, true)
       flash[:success] = 'ZOMG! Your hug is amazing! Thank you.'
       redirect '/'
     rescue
-      flash[:alert] = 'Sorry, this is not a valid Tweet URL.'
+      flash[:alert] = 'Sorry, some exception has raised due to programmer laziness or this is not a valid Tweet URL.'
       redirect '/'
     end
   else

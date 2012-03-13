@@ -1,4 +1,8 @@
 require 'mongoid'
+require 'aws/s3'
+require 'open-uri'
+require 'RMagick'
+require_relative '../config/s3.rb'
 
 class Hug
   include Mongoid::Document
@@ -9,9 +13,12 @@ class Hug
   field :username
   field :media_url
   field :media_display_url
+  field :thumb_file_name
   field :retweet_count, type: Integer
   field :published_at, type: DateTime
   field :published, type: Boolean
+
+	IMAGE_TMP_PATH = '/tmp/'
 
   def self.published
     where(published: true)
@@ -32,7 +39,7 @@ class Hug
     if (is_a_hug?(tweet.text) || skip_hug_validation) && @media_url
       if where(media_url: @media_url).empty?
         user = tweet.from_user.nil? ? tweet.user.screen_name : tweet.from_user
-        create(
+        hug = create(
           tweet_id: tweet.id,
           tweet_text: tweet.text,
           username: user,
@@ -42,7 +49,13 @@ class Hug
           published_at: tweet.created_at,
           published: true
         )
-      end
+				begin	
+					hug.create_thumb!
+				rescue
+					hug.destroy
+					raise 'Unable to create thumb.'
+				end
+			end
     end
   end
   
@@ -53,5 +66,29 @@ class Hug
   def twitpic_full
     media_url.gsub('thumb', 'full')
   end
+
+	def thumb_url
+		"https://s3.amazonaws.com/hugfriday/#{tweet_id}/#{thumb_file_name}"
+	end
+
+	def create_thumb!
+		tmp_file_name = get_image
+		img = Magick::Image::read(IMAGE_TMP_PATH+tmp_file_name).first
+		
+		thumb = img.resize_to_fit(260)
+		thumb_name = 'thumb'+'.'+img.format.downcase.gsub('jpeg', 'jpg')
+		self.update_attribute :thumb_file_name, thumb_name
+		thumb.write IMAGE_TMP_PATH+thumb_name
+		
+		AWS::S3::S3Object.store(tweet_id.to_s+'/'+thumb_name, open(IMAGE_TMP_PATH+thumb_name), 'hugfriday', access: :public_read) 
+	end
+	
+	def get_image
+		file_name = tweet_id.to_s+'.image'
+		open(IMAGE_TMP_PATH+file_name, "wb") do |file|
+			file.write(open(media_url).read)
+		end
+		file_name
+	end
 
 end

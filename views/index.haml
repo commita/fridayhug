@@ -16,7 +16,7 @@
       %form{class: 'form-inline', action: '/share-hug', method: 'POST'}
         %label Can't find your hug? Share it with us:
         %input.span4{type: 'text', placeholder: 'https://twitter.com/#!/HugFriday/status/175433835499110400', name: 'tweet'}
-        %a{id: 'submit-hug', href: '#', rel: "tooltip", title: "URL for the Tweet with an image. We support yfrog, instagram, twitpic, img.ly and twitter native photos."}
+        %a{id: 'submit-hug', href: '#', rel: "tooltip", title: "URL for the Tweet with an image. We support yfrog, instagram, twitpic, img.ly, twitter native photos and raw image URLs!"}
           %i.icon-question-sign
         %button{type: 'submit', class: 'btn'} Send
     .span4 
@@ -36,10 +36,10 @@
   - @tweets.each do |t|
     %li.span3
       .thumbnail
-        - img_link = t.twitpic? ? "/hugs/#{t.id}" : "##{t.id}"
+        - img_link = "/hugs/#{t.id}"
         %a{href: "#{img_link}", rel: "facebox"}
           %div{id: t.id, class: 'my-thumb'}
-            %img{src: t.media_url}
+            %img{src: t.thumb_url}
         %blockquote
           %p
             = "#{t.tweet_text}"
