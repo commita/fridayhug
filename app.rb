@@ -3,26 +3,12 @@ require 'sinatra/flash'
 require 'haml'
 require 'twitter'
 require 'mongoid'
+require_relative 'config/config'
 require_relative 'models/hug'
 require_relative 'helpers'
 require 'awesome_print'
 
 enable :sessions
-
-configure :production do
-  Mongoid.configure do |config|
-    uri =  URI.parse(ENV['MONGOLAB_URL'])
-    config.master = Mongo::Connection.from_uri(ENV['MONGOLAB_URL']).db(uri.path.gsub("/", ""))    
-  end
-end
-
-configure :development do
-  Mongoid.configure do |config|
-    name = "hugfriday"
-    host = "localhost"
-    config.master = Mongo::Connection.new.db(name)
-  end
-end
 
 helpers do
   def protected!
@@ -58,15 +44,10 @@ end
 post '/share-hug' do
   if params[:tweet].present?
     tweet_id = params[:tweet].split('/').last.to_i
-    begin
       tweet = Twitter.status(tweet_id, include_entities: true)
       hug = Hug.create_or_skip(tweet, true)
       flash[:success] = 'ZOMG! Your hug is amazing! Thank you.'
       redirect '/'
-    rescue
-      flash[:alert] = 'Sorry, some exception has raised due to programmer laziness or this is not a valid Tweet URL.'
-      redirect '/'
-    end
   else
     flash[:info] = 'Hey, you need to enter the Tweet URL.'
     redirect '/'

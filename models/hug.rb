@@ -68,7 +68,7 @@ class Hug
   end
 
 	def thumb_url
-		"https://s3.amazonaws.com/hugfriday/#{tweet_id}/#{thumb_file_name}"
+		"https://s3.amazonaws.com/#{BUCKET}/#{tweet_id}/#{thumb_file_name}"
 	end
 
 	def create_thumb!
@@ -80,7 +80,7 @@ class Hug
 		self.update_attribute :thumb_file_name, thumb_name
 		thumb.write IMAGE_TMP_PATH+thumb_name
 		
-		AWS::S3::S3Object.store(tweet_id.to_s+'/'+thumb_name, open(IMAGE_TMP_PATH+thumb_name), 'hugfriday', access: :public_read) 
+		AWS::S3::S3Object.store(tweet_id.to_s+'/'+thumb_name, open(IMAGE_TMP_PATH+thumb_name), BUCKET, access: :public_read) 
 	end
 	
 	def get_image

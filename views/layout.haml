@@ -29,12 +29,14 @@
     .container
       %header
         .row
-          .span11
+          .span10
             %h1
               %a{href: '/'} HugFriday.com
-          .span1.feed
-            %a{href: '/atom.xml', class: 'feed'}
-              %img{src: '/images/feed.png'}
+          .span2.feed
+            %a{href: 'https://twitter.com/#!/hugfriday'}
+              %img{src: '/images/twitter_icon_grey.png'}
+            %a{href: '/atom.xml'}
+              %img{src: '/images/feed_icon_grey.png'}
       - if flash[:alert]
         .alert.alert-error
           %a{class: "close", 'data-dismiss' => "alert"}×
@@ -52,11 +54,14 @@
       %footer
         %p
           %em
-            Yes, yet another app using
-            %a{href: "http://twitter.github.com/bootstrap/"} Twitter Bootstrap.
+            %a{href: "/"} HugFriday.com
+            is brought to you by
+            = succeed '.' do
+              %a{href: "http://commita.com"}< Commita
             Also proudly hosted by
-            %a{href: "https://dnsimple.com"} DNSimple
-            ,
+            = succeed ',' do
+              %a{href: "https://dnsimple.com"}< DNSimple
             %a{href: "http://heroku.com"} Heroku
             and
-            %a{href: "http://mongolab.com"} MongoLab
+            = succeed '.' do
+              %a{href: "http://mongolab.com"}< MongoLab
