@@ -14,6 +14,8 @@ def get_image_url(url)
       "http://instagr.am/p/#{url.split('/')[4]}/media?size=m"
     when /img.ly/i
       get_imgly_url(url)
+		when /ow.ly/i
+			"http://static.ow.ly/photos/normal/#{url.split('/')[4]}.jpg"
 		when /.jpg|.jpeg|.gif|.png/i
 			url
   end
