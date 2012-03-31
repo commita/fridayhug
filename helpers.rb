@@ -1,7 +1,7 @@
 require 'nokogiri'
 
 def is_image?(url)
-  url =~ /twitpic.com|yfrog.com|instagr.am|img.ly|.jpg|.jpeg|.gif|.png/i
+  url =~ /twitpic.com|yfrog.com|instagr.am|img.ly|ow.ly|.jpg|.jpeg|.gif|.png/i
 end
 
 def get_image_url(url)

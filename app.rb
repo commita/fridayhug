@@ -44,10 +44,15 @@ end
 post '/share-hug' do
   if params[:tweet].present?
     tweet_id = params[:tweet].split('/').last.to_i
+		begin
       tweet = Twitter.status(tweet_id, include_entities: true)
       hug = Hug.create_or_skip(tweet, true)
       flash[:success] = 'ZOMG! Your hug is amazing! Thank you.'
       redirect '/'
+		rescue
+			flash[:alert] = 'Sorry, some exception has raised due to programmer laziness or this is not a valid Tweet URL.'
+			redirect '/'
+    end
   else
     flash[:info] = 'Hey, you need to enter the Tweet URL.'
     redirect '/'

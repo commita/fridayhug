@@ -27,7 +27,7 @@ class Hug
   def self.create_or_skip(tweet, skip_hug_validation = false)
     if tweet.media && tweet.media.empty?
       tweet.expanded_urls.each do |expanded_url|
-        if is_image?(expanded_url)
+				if is_image?(expanded_url)
           @media_url = get_image_url(expanded_url)
           @media_display_url = expanded_url
         end
