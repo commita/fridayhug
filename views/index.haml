@@ -2,7 +2,7 @@
   .hero-unit
     %h1
       - if Time.now.friday?
-        Hey, it's Hug Friday!
+        Hey, it's Friday Hug!
       - else
         It's not Friday yet. :(
       %a{href: '/about', class: 'btn btn-primary btn-large'} Learn more
@@ -15,7 +15,7 @@
     .span8
       %form{class: 'form-inline', action: '/share-hug', method: 'POST'}
         %label Can't find your hug? Share it with us:
-        %input.span4{type: 'text', placeholder: 'https://twitter.com/#!/HugFriday/status/175433835499110400', name: 'tweet'}
+        %input.span4{type: 'text', placeholder: 'https://twitter.com/#!/FridayHug/status/175433835499110400', name: 'tweet'}
         %a{id: 'submit-hug', href: '#', rel: "tooltip", title: "URL for the Tweet with an image. We support yfrog, instagram, twitpic, img.ly, ow.ly, twitter native photos and raw image URLs!"}
           %i.icon-question-sign
         %button{type: 'submit', class: 'btn'} Send
@@ -27,11 +27,16 @@
 .row
   .span12
     %p
-      %span.label.label-success Huge Hug!
-      Thanks to 
+      %span.label.label-success Thanks!
+      Huge hug to 
       %a{href: 'https://dnsimple.com/'} DNSimple
-      for giving us two years of service.
-      %a{href: 'https://twitter.com/#!/aeden/status/175705505803677696'} More info
+      for giving us
+      %a{href: 'https://twitter.com/#!/aeden/status/175705505803677696'} two years of service
+      and
+      %a{href: 'https://twitter.com/#!/gccostabr'} @gccostabr
+      for transfering the
+      %a{href: 'http://fridayhug.com'} FridayHug.com
+      domain to us.
 %ul.thumbnails
   - @tweets.each do |t|
     %li.span3

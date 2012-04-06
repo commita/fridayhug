@@ -1,11 +1,11 @@
 !!! XML
 %feed{xmlns:"http://www.w3.org/2005/Atom"}
   %title #FridayHug - Share your hug!
-  %link{href: "http://hugfriday.com/"}
-  %link{href: "http://hugfriday.com/atom.xml", rel: "self"}
-  %subtitle{type: "html"} Every friday we share hugs on Twitter with the hashtag #HugFriday and make the day a little bit better.
+  %link{href: "http://fridayhug.com/"}
+  %link{href: "http://fridayhug.com/atom.xml", rel: "self"}
+  %subtitle{type: "html"} Every friday we share hugs on Twitter with the hashtag #FridayHug and make the day a little bit better.
   %updated= Time.now.xmlschema
-  %id http://hugfriday.com
+  %id http://fridayhug.com
   - @hugs.each do |hug|
     %entry
       %title= "Hug from @#{hug.username}"
@@ -14,7 +14,7 @@
       %link{href: "https://twitter.com/#!/#{hug.username}/status/#{hug.tweet_id}"}
       %id= "https://twitter.com/#!/#{hug.username}/status/#{hug.tweet_id}"
       %author
-        %name HugFriday.com
+        %name FridayHug.com
       %content{type: "xhtml", 'xml:lang' => "en", 'xml:base' => "http://diveintomark.org/"}
         %div{xmlns: "http://www.w3.org/1999/xhtml"}
           %img{src: hug.media_url}
