@@ -3,16 +3,25 @@
   %head
     %meta{charset: 'utf-8'}
     %title #FridayHug - Share your hug!
+    %meta{ 'property'=>"og:title", 'content'=>"#FridayHug"}
+    %meta{ 'property'=>"og:type", 'content'=>"website"}
+    %meta{ 'property'=>"og:url", 'content'=>"http://fridayhug.com"}
+    %meta{ 'property'=>"og:image", 'content'=>"https://s3.amazonaws.com/hugfriday/180701590259380224/thumb.jpg"}
+    %meta{ 'property'=>"og:site_name", 'content'=>"FridayHug"}
+    %meta{ 'property'=>"fb:admins", 'content'=>"100001515573247"}
+    
     %link{href: '/atom.xml', rel: "alternate", type: "application/atom+xml", title: "FridayHug.com Atom Feed"}
     %link{href: 'stylesheets/bootstrap.min.css', rel: 'stylesheet', type: 'text/css'}
     %link{href: 'stylesheets/bootstrap-responsive.min.css', rel: 'stylesheet', type: 'text/css'}
     %link{href: 'stylesheets/base.css', rel: 'stylesheet', type: 'text/css'}
     %link{href: 'stylesheets/facebox.css', rel: 'stylesheet', type: 'text/css'}
+    
     %script{src: "https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js", type: "text/javascript"}
     %script{src: "javascripts/bootstrap-tooltip.js", type: "text/javascript"}
     %script{src: "javascripts/bootstrap-alert.js", type: "text/javascript"}
     %script{src: "javascripts/facebox.js", type: "text/javascript"}
     %script{src: "javascripts/base.js", type: "text/javascript"}
+      
     /[if lt IE 9]
       %script{src: "http://html5shim.googlecode.com/svn/trunk/html5.js"}
     :javascript
