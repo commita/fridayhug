@@ -6,6 +6,11 @@ header .feed {
   text-align: right;
   margin-top: 5px;
 }
+
+header .like {
+  margin-top: 10px;
+}
+
 sub-header.home a {
   color: #ccc;
   text-decoration: none;
