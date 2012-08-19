@@ -1,3 +1,6 @@
+// HEADER
+// ------
+
 header {
 	height: 50px;
 }
@@ -39,14 +42,51 @@ sub-header .hugs-count {
   text-align: right;
 }
 
-.my-thumb {
-  text-align: center;
-}
+// FACEBOX
+// --------
 
 #facebox img {
   max-width:800px;
 }
 
+// FOOTER
+// ------
+
+
 footer {
   text-align: right;
 }
+
+// CUSTOM THUMBNAILS
+// -----------------
+
+.my-thumb {
+  text-align: center;
+}
+
+.thumbnail {
+	height: 350px;
+  display: block;
+  padding: 4px;
+  line-height: 1;
+  border: 1px solid #ddd;
+  -webkit-border-radius: 4px;
+     -moz-border-radius: 4px;
+          border-radius: 4px;
+  -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075);
+     -moz-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075);
+          box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075);
+}
+
+.thumbnail > img {
+  display: block;
+  max-width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.thumbnail img {
+	max-height: 200px;
+  margin-bottom: 10px;
+}
+
