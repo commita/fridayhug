@@ -4,11 +4,9 @@ require 'open-uri'
 require 'nokogiri'
 require_relative '../models/hug'
 require_relative '../helpers'
+require_relative '../config/load_path'
 
-root_dir = File.dirname(File.expand_path(__FILE__))
-root_dir = File.expand_path(root_dir + '/../')
-
-Mongoid.load!("#{root_dir}/config/mongoid.yml", :production)
+Mongoid.load!("#{project_path}/config/mongoid.yml", :production)
 
 def update_hugs!
   puts Time.now

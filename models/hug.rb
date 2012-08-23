@@ -1,5 +1,4 @@
 require 'mongoid'
-require 'aws/s3'
 require 'open-uri'
 require 'RMagick'
 require_relative '../config/s3.rb'

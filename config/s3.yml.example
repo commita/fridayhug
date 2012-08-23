@@ -1,0 +1,9 @@
+development:
+  access_key_id: AKIAIEFGBBBESOJGQ
+  secret_access_key: qr1qdcEWpyCudzyZMdfg2344sdfsdfdsfdsf
+  bucket: bucket_name_dev
+
+production:
+  access_key_id: AKIAIEFGBBBESOJGQ
+  secret_access_key: qr1qdcEWpyCudzyZMdfg2344sdfsdfdsfdsf
+  bucket: bucket_name_production
