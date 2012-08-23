@@ -2,7 +2,14 @@ require 'yaml'
 require 'aws/s3'
 require_relative 'load_path'
 
-s3_config = YAML::load(File.open(project_path + '/config/s3.yml'))
+# Uses Heroku config variables if they are present
+file_name = if ENV['AWS_KEY_ID']
+	's3.yml'
+else
+	's3_heroku.yml'
+end
+
+s3_config = YAML::load(File.open("#{project_path}/config/#{file_name}"))
 s3_config = ENV['RACK_ENV'] == 'production' ? s3_config['production'] : s3_config['development']
 
 AWS::S3::Base.establish_connection!(
