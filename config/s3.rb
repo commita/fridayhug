@@ -2,7 +2,7 @@ require 'yaml'
 require 'aws/s3'
 require_relative 'load_path'
 
-# Uses Heroku config variables if they are present
+# Uses Heroku config variables if they are present.
 if ENV['AWS_KEY_ID']
 	 s3_config = { 
 			'access_key_id' => ENV['AWS_KEY_ID'],
@@ -21,4 +21,3 @@ AWS::S3::Base.establish_connection!(
 )
 
 BUCKET = s3_config['bucket']
-	
