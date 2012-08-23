@@ -1,3 +1,5 @@
+tmp/
 dump/
+config/mongoid.yml
 restore.sh
 run.sh

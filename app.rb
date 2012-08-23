@@ -6,7 +6,6 @@ require 'mongoid'
 require_relative 'config/config'
 require_relative 'models/hug'
 require_relative 'helpers'
-require 'awesome_print'
 
 enable :sessions
 
