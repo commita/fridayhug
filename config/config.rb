@@ -1,9 +1,7 @@
 configure :production do
 	# Uses Heroku config variables if they are present
 	if ENV['MONGOLAB_URL']
-		Mongoid.configure do |config|
-  	  config.uri = ENV['MONGOLAB_URL']
-  	end
+  	Mongoid.load!("#{settings.root}/config/mongoid_heroku.yml", :production)
 	else
   	Mongoid.load!("#{settings.root}/config/mongoid.yml", :production)
 	end
