@@ -4,9 +4,9 @@ require_relative 'load_path'
 
 # Uses Heroku config variables if they are present
 file_name = if ENV['AWS_KEY_ID']
-	's3.yml'
-else
 	's3_heroku.yml'
+else
+	's3.yml'
 end
 
 s3_config = YAML::load(File.open("#{project_path}/config/#{file_name}"))
