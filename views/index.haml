@@ -56,8 +56,10 @@
               - if authorized?
                 %a{href: "/hide/#{t.id}"} hide
                 %a{href: "/remove/#{t.id}"} remove
-.pagination
-  %ul
-    - @num_pages.times do |page|
-      %li{class: "#{'active' if page+1 == params[:page].to_i}"}
-        %a{href: "/?page=#{page+1}"}= page+1
+.row
+  .span12
+    .pagination
+      %ul
+        - @num_pages.times do |page|
+          %li{class: "#{'active' if page+1 == params[:page].to_i}"}
+            %a{href: "/?page=#{page+1}"}= page+1
