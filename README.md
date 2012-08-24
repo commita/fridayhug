@@ -9,13 +9,15 @@ Share your hug every Friday on twitter using the hashtag #FridayHug
 
 * [MongoDB](http://www.mongodb.org/downloads) >= 2.0
 
-* Bundler >= 1.2.0.rc.2 (supports ruby version on Gemfile, read more bellow on Heroku section)
+* Bundler >= 1.2.0.rc.2 (supports ruby version on Gemfile)
  
 ## Setup
 
-Install bundler 1.2.0.rc.2 or newer:
+Install Bundler 1.2.0.rc.2 or newer:
 
 `gem install bundler --pre`
+
+We need Bundler 1.2 to use [Ruby 1.9.3 on Heroku](https://devcenter.heroku.com/articles/ruby-versions).
 
 Create database config `mongoid.yml`:
 
