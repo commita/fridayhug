@@ -47,7 +47,7 @@ we would end up paying for it.
 
 ## Tests
 
-*There's none*. Yes, I know... what I shame. This was a one person and one weekend RailsRumble-like project, hopefully there will be tests in the future.
+**There's none**. Yes, I know... what I shame. This was a one person and one weekend Rails Rumble-like project, hopefully there will be tests in the future.
 
 ## Heroku
 
@@ -89,6 +89,6 @@ And then access the path `/manage-hugs` for the admin.
 
 ## License
 
-Friday Hug is licensed under the I DON'T GIVE A FUCK license.
+Friday Hug is licensed under the **I DON'T GIVE A FUCK** license.
 
-Do whatever you want with this code.
+Do whatever you want with this code. (:
