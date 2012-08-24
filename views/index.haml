@@ -41,11 +41,10 @@
 %ul.thumbnails
   - @tweets.each do |t|
     %li.span3
-      .thumbnail
+      .thumbnail.custom-thumb
         - img_link = "/hugs/#{t.id}"
-        %a{href: "#{img_link}", rel: "facebox"}
-          %div{id: t.id, class: 'my-thumb'}
-            %img{src: t.thumb_url}
+        %a{href: "#{img_link}", rel: "facebox", id: t.id}
+          %img{src: t.thumb_url}
         %blockquote
           %p
             = "#{t.tweet_text}"
