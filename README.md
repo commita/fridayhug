@@ -41,6 +41,10 @@ available on your system. We use the the UNIX CRON for it and the command will l
 
 `*/10 * * * * /bin/bash -l -c 'cd /my/app/fridayhug && RACK_ENV=production bundle exec ruby /my/app/fridayhug/scripts/update.rb >/my/app/fridayhug/last_update.txt'`
 
+Since we use Heroku, we run this script on a personal VPS, separeated from our production server. Why? We could 
+use [their scheduler](https://devcenter.heroku.com/articles/scheduler), but it will use our available free dyno time and
+we would end up paying for it.
+
 ## Heroku
 
 We use Heroku to host our little app and we use their awesome [free tier](http://www.heroku.com/pricing#1-0).
@@ -78,3 +82,9 @@ to setup the admin vars:
 `heroku config:set AMDIN_USER=username AMDIN_PASSWORD=password`
 
 And then access the path `/manage-hugs` for the admin.
+
+## License
+
+Friday Hug is licensed under the I DON'T GIVE A FUCK license.
+
+Do whatever you want with this code.
