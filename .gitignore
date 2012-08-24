@@ -2,5 +2,4 @@ tmp/
 dump/
 config/mongoid.yml
 config/s3.yml
-restore.sh
-run.sh
+.rvmrc
