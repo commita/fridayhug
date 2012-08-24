@@ -45,6 +45,10 @@ Since we use Heroku, we run this script on a personal VPS, separeated from our p
 use [their scheduler](https://devcenter.heroku.com/articles/scheduler), but it will use our available free dyno time and
 we would end up paying for it.
 
+## Tests
+
+*There's none*. Yes, I know... what I shame. This was a one person and one weekend RailsRumble-like project, hopefully there will be tests in the future.
+
 ## Heroku
 
 We use Heroku to host our little app and we use their awesome [free tier](http://www.heroku.com/pricing#1-0).
