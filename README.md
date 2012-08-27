@@ -3,7 +3,7 @@
 [FridayHug.com](http://fridayhug.com) (former HugFriday.com) is a movement to help spread the goodness. 
 Share your hug every Friday on twitter using the hashtag #FridayHug
 
-## Enviroment
+## Environment
 
 * Ruby 1.9.3-p194
 
@@ -38,7 +38,7 @@ Now you are pretty much set, the project should run but with no content.
 We have to update our database from time to time, watching a few keywords on Twitter and we won't do that on every user request,
 because this would be resource and time consuming.
 
-So, here is where `scripts/update.rb` comes in place, we run it periodicaly (every 10 minutes) using any scheduler you have 
+So, in `scripts/update.rb` is where that comes in place, we run it periodicaly (every 10 minutes) using any scheduler you have 
 available on your system. We use the the UNIX CRON for it and the command will look something like:
 
 `*/10 * * * * /bin/bash -l -c 'cd /my/app/fridayhug && RACK_ENV=production bundle exec ruby /my/app/fridayhug/scripts/update.rb >/my/app/fridayhug/last_update.txt'`
@@ -57,7 +57,7 @@ We use Heroku to host our little app and we use their awesome [free tier](http:/
 In order to get the app running on Heroku, there's a few extra configurations you need to do:
 
 Since Heroku uses a very easy but peculiar `git push` deploy style, we can't host configuration files on our source repository,
-it's a bad practice (oh yeah, we did that in the past, when our code was still behind the curtain, shme on us).
+it's a bad practice (oh yeah, we did that in the past, when our code was still behind the curtains, shame on us).
 
 How Heroku handles configuration then? Here come in scene [Heroku Config Vars](https://devcenter.heroku.com/articles/config-vars).
 
@@ -91,6 +91,20 @@ And then access the path `/manage-hugs` for the admin.
 
 ## License
 
-Friday Hug is licensed under the **I DON'T GIVE A FUCK** license.
+Friday Hug is licensed under the WTFPL license:
 
-Do whatever you want with this code. (:
+```
+DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE 
+                    Version 2, December 2004 
+
+ Copyright (C) 2004 Sam Hocevar <sam@hocevar.net> 
+
+ Everyone is permitted to copy and distribute verbatim or modified 
+ copies of this license document, and changing it is allowed as long 
+ as the name is changed. 
+
+            DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE 
+   TERMS AND CONDITIONS FOR COPYING, DISTRIBUTION AND MODIFICATION 
+
+  0. You just DO WHAT THE FUCK YOU WANT TO.
+```
