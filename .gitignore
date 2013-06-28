@@ -3,3 +3,4 @@ dump/
 config/mongoid.yml
 config/s3.yml
 .rvmrc
+.ruby-version
