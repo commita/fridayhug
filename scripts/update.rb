@@ -18,7 +18,7 @@ def update_hugs!
 
 	terms.each do |term|
     puts "Search: #{term}"
-    Twitter.search(term, include_entities: true, count: 100, result_type: 'recent').results.each do |tweet|
+    Twitter.search("#{term} exclude:retweets filter:links", include_entities: true, count: 100, result_type: 'recent').results.each do |tweet|
       Hug.create_or_skip(tweet)
 			puts tweet.text
     end
