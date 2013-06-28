@@ -1,12 +1,12 @@
 require 'mongoid'
 require 'open-uri'
-require 'RMagick'
+require 'mini_magick'
 require_relative '../config/s3.rb'
 
 class Hug
   include Mongoid::Document
   include Mongoid::Timestamps
-  
+
   field :tweet_id
   field :tweet_text
   field :username
@@ -25,7 +25,7 @@ class Hug
 
   def self.create_or_skip(tweet, skip_hug_validation = false)
     if tweet.media && tweet.media.empty?
-      tweet.expanded_urls.each do |expanded_url|
+      tweet.urls.each do |expanded_url|
 				if is_image?(expanded_url)
           @media_url = get_image_url(expanded_url)
           @media_display_url = expanded_url
@@ -48,16 +48,16 @@ class Hug
           published_at: tweet.created_at,
           published: true
         )
-				begin	
+				begin
 					hug.create_thumb!
-				rescue
+				rescue Exception => e
 					hug.destroy
 					raise 'Unable to create thumb.'
 				end
 			end
     end
   end
-  
+
   def twitpic?
     media_url =~ /twitpic.com/
   end
@@ -72,16 +72,16 @@ class Hug
 
 	def create_thumb!
 		tmp_file_name = get_image
-		img = Magick::Image::read(IMAGE_TMP_PATH+tmp_file_name).first
-		
-		thumb = img.resize_to_fit(260)
-		thumb_name = 'thumb'+'.'+img.format.downcase.gsub('jpeg', 'jpg')
+		img = MiniMagick::Image.open(IMAGE_TMP_PATH+tmp_file_name)
+
+		img.resize('260')
+		thumb_name = 'thumb'+'.'+img[:format].downcase.gsub('jpeg', 'jpg')
 		self.update_attribute :thumb_file_name, thumb_name
-		thumb.write IMAGE_TMP_PATH+thumb_name
-		
+		img.write IMAGE_TMP_PATH+thumb_name
+
 		AWS::S3::S3Object.store(tweet_id.to_s+'/'+thumb_name, open(IMAGE_TMP_PATH+thumb_name), BUCKET, access: :public_read) 
 	end
-	
+
 	def get_image
 		file_name = tweet_id.to_s+'.image'
 		open(IMAGE_TMP_PATH+file_name, "wb") do |file|

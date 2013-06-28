@@ -4,7 +4,7 @@ require_relative 'load_path'
 
 # Uses Heroku config variables if they are present.
 if ENV['AWS_KEY_ID']
-	 s3_config = { 
+	 s3_config = {
 			'access_key_id' => ENV['AWS_KEY_ID'],
 	 		'secret_access_key' => ENV['AWS_SECRET'],
 	 		'bucket' => ENV['AWS_S3_BUCKET']
@@ -16,7 +16,7 @@ end
 
 
 AWS::S3::Base.establish_connection!(
-	:access_key_id     => s3_config['access_key_id'], 
+	:access_key_id     => s3_config['access_key_id'],
 	:secret_access_key => s3_config['secret_access_key']
 )
 

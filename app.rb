@@ -1,9 +1,9 @@
 require 'sinatra'
 require 'sinatra/flash'
 require 'haml'
-require 'twitter'
 require 'mongoid'
 require_relative 'config/config'
+require_relative 'config/twitter'
 require_relative 'models/hug'
 require_relative 'helpers'
 
