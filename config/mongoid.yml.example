@@ -1,10 +1,10 @@
 development:
-  sessions:
+  clients:
     default:
       database: fridayhug
       hosts:
         - localhost:27017
 production:
-  sessions:
+  clients:
     default:
       uri: mongodb://USER:PASS@ds0a4443.mongolab.com:37407/database_name

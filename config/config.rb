@@ -5,7 +5,6 @@ configure :production do
 	else
   	Mongoid.load!("#{settings.root}/config/mongoid.yml", :production)
 	end
-	
 end
 
 configure :development do

@@ -1,5 +1,5 @@
 production:
-  sessions:
+  clients:
     default:
       uri: <%= ENV['MONGOLAB_URL'] %>
       options:

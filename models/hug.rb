@@ -73,13 +73,14 @@ class Hug
 	def create_thumb!
 		tmp_file_name = get_image
 		img = MiniMagick::Image.open(IMAGE_TMP_PATH+tmp_file_name)
-
 		img.resize('260')
 		thumb_name = 'thumb'+'.'+img[:format].downcase.gsub('jpeg', 'jpg')
 		self.update_attribute :thumb_file_name, thumb_name
 		img.write IMAGE_TMP_PATH+thumb_name
 
-		AWS::S3::S3Object.store(tweet_id.to_s+'/'+thumb_name, open(IMAGE_TMP_PATH+thumb_name), BUCKET, access: :public_read) 
+		s3 = Aws::S3::Resource.new
+		s3_file = s3.bucket(BUCKET).object(tweet_id.to_s+'/'+thumb_name)
+		s3_file.upload_file(open(IMAGE_TMP_PATH+thumb_name), acl: 'public-read')
 	end
 
 	def get_image

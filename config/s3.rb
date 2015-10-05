@@ -1,5 +1,5 @@
 require 'yaml'
-require 'aws/s3'
+require 'aws-sdk'
 require_relative 'load_path'
 
 # Uses Heroku config variables if they are present.
@@ -14,10 +14,9 @@ else
 	s3_config = ENV['RACK_ENV'] == 'production' ? s3_config['production'] : s3_config['development']
 end
 
-
-AWS::S3::Base.establish_connection!(
-	:access_key_id     => s3_config['access_key_id'],
-	:secret_access_key => s3_config['secret_access_key']
-)
+Aws.config.update({
+	credentials: Aws::Credentials.new(s3_config['access_key_id'], s3_config['secret_access_key']),
+	region: 'us-east-1'
+})
 
 BUCKET = s3_config['bucket']
